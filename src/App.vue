@@ -1,14 +1,14 @@
 <template>
-  <EmptyComponent />
+  <Crud />
 </template>
 
 <script>
-import EmptyComponent from './components/EmptyComponent.vue'
+import Crud from './components/CRUD.vue'
 
 export default {
   name: 'App',
   components: {
-    EmptyComponent
+    Crud
   }
 }
 </script>

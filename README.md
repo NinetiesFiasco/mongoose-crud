@@ -1,4 +1,4 @@
-# empty-project
+# crud-system
 
 ## Project setup
 ```

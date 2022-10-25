@@ -21,12 +21,12 @@
           <template v-for="(row, key) of crudData" :key="key">
             <tr>
               <td>{{key+1}}</td>
-              <template v-for="(cell, key) of row" :key="key">
+              <template v-for="(cell, key2) of row" :key="key2">
                 <td>{{cell}}</td>
               </template>
               <td :index="key">
                 <button @click="update">Update</button>
-                <button @click="_delete">Delete</button>
+                <button @click="localDelete">Delete</button>
               </td>
             </tr>
           </template>
@@ -52,53 +52,28 @@
 </template>
 
 <script>
-export default {
+import {mapGetters, mapMutations, mapActions} from 'vuex'
 
+export default {
   name: 'Crud',
   
-  data() {
-    return {
-      edited: this.getEmpty(),
-      columns: ['head 1'],
-      crudData: [
-        {stringValue: 'data 1'},
-        {stringValue: 'data 2'}
-      ],
-      editedIndex: -1
-    }
+  computed: {
+    ...mapGetters('crud', ['edited','columns','crudData'])
   },
   
   methods: {
+    ...mapMutations('crud', ['refresh', 'startUpdate', '_delete']),
+    ...mapActions('crud', ['save']),
     
-    getEmpty: () => ({
-      stringValue: ''
-    }),
-    
-    refresh() {
-      this.edited = this.getEmpty()
-      this.editedIndex = -1
-    },
-    
-    save() {
-      if(this.editedIndex === -1) 
-        this.crudData.push({
-          ...this.edited
-        })
-      else
-        this.crudData[this.editedIndex] = {...this.edited}
-        
-      this.refresh()
-    },
 
     update(e) {
-      const index = e.target.parentNode.getAttribute('index')
-      this.editedIndex = parseInt(index)
-      this.edited = {...this.crudData[this.editedIndex]}
+      const index = parseInt(e.target.parentNode.getAttribute('index'))
+      this.startUpdate(index)
     },
 
-    _delete(e) {
+    localDelete(e) {
       const index = e.target.parentNode.getAttribute('index')
-      this.crudData.splice(index, 1)
+      this._delete(index)
     }
 
   }

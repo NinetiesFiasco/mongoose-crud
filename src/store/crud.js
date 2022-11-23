@@ -1,17 +1,18 @@
+import api from '../api'
+
 export default {
   namespaced: true,
   state: () => ({
     edited: {
       stringValue: ''
     },
-    columns: ['head 1'],
-    crudData: [
-      {stringValue: 'data 1'},
-      {stringValue: 'data 2'}
-    ],
+    crudData: [],
     editedIndex: -1
   }),
   mutations: {
+    setData: (state, crudData) => {
+      state.crudData = crudData
+    },
     refresh: (state) => {
       state.edited.stringValue = ''
       state.editedIndex = -1
@@ -31,13 +32,25 @@ export default {
     },
   },
   actions: {
-    save: ({state, commit}) => {
+    read: async function({commit}) {
+      const crudData = await api.example.read()
+      commit('setData', crudData)
+    },
+    save: async function({state, commit, dispatch}) {
       if(state.editedIndex === -1) 
-        commit('create')
-      else
-        commit('update')
+        await api.example.create(state.edited)
+      else {
+        const id = state.crudData[state.editedIndex]._id;
+        await api.example.update(id, state.edited)
+      }
 
       commit('refresh')
+      dispatch('read')
+    },
+    delete: async function({state, dispatch}, index) {
+      const id = state.crudData[index]._id;
+      await api.example.delete(id)
+      dispatch('read')
     }
   },
   getters: {

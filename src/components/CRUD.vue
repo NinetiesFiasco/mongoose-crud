@@ -9,21 +9,17 @@
         <thead>
           <tr>
             <th>ID</th>
-            <template v-for="(row, key) of columns" :key="key">
-              <th>{{row}}</th>
-            </template>
+            <th>Data</th>
             <th>Action</th>
           </tr>
         </thead>
         
         <!-- *** Table body *** -->
         <tbody>
-          <template v-for="(row, key) of crudData" :key="key">
+          <template v-for="(entry, key) of crudData" :key="key">
             <tr>
               <td>{{key+1}}</td>
-              <template v-for="(cell, key2) of row" :key="key2">
-                <td>{{cell}}</td>
-              </template>
+              <td>{{entry.stringValue}}</td>
               <td :index="key">
                 <button @click="update">Update</button>
                 <button @click="localDelete">Delete</button>
@@ -58,13 +54,16 @@ export default {
   name: 'Crud',
   
   computed: {
-    ...mapGetters('crud', ['edited','columns','crudData'])
+    ...mapGetters('crud', ['edited','crudData'])
+  },
+
+  mounted() {
+    this.read();
   },
   
   methods: {
-    ...mapMutations('crud', ['refresh', 'startUpdate', '_delete']),
-    ...mapActions('crud', ['save']),
-    
+    ...mapMutations('crud', ['refresh', 'startUpdate']),
+    ...mapActions('crud', ['save', 'read', 'delete']),
 
     update(e) {
       const index = parseInt(e.target.parentNode.getAttribute('index'))
@@ -73,7 +72,7 @@ export default {
 
     localDelete(e) {
       const index = e.target.parentNode.getAttribute('index')
-      this._delete(index)
+      this.delete(index)
     }
 
   }

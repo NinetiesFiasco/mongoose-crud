@@ -1,9 +1,9 @@
 import {createStore} from 'vuex'
-import crud from './crud'
+import example from './example'
 
 const store = createStore({
   modules: {
-    crud
+    example
   }
 })
 

@@ -17,34 +17,30 @@ export default {
       state.edited.stringValue = ''
       state.editedIndex = -1
     },
-    create: (state) => {
-      state.crudData.push({...state.edited})
-    },
     startUpdate: (state, index) => {
       state.editedIndex = index
       state.edited = {...state.crudData[state.editedIndex]}
-    },
-    update: (state) => {
-      state.crudData[state.editedIndex] = {...state.edited}
-    },
-    _delete: (state, index) => {
-      state.crudData.splice(index, 1)
-    },
+    }
   },
   actions: {
     read: async function({commit}) {
-      const crudData = await api.example.read()
+      let crudData = await api.example.read()
+      if (!crudData) {
+        crudData = []
+      }
       commit('setData', crudData)
+      commit('refresh')
     },
-    save: async function({state, commit, dispatch}) {
-      if(state.editedIndex === -1) 
+    save: async function({state, dispatch}) {
+      if (!state.edited.stringValue) {
+        return
+      }
+      if(state.editedIndex === -1) {
         await api.example.create(state.edited)
-      else {
+      } else {
         const id = state.crudData[state.editedIndex]._id;
         await api.example.update(id, state.edited)
       }
-
-      commit('refresh')
       dispatch('read')
     },
     delete: async function({state, dispatch}, index) {

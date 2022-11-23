@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 
-const port = process.env.PORT || 3000 
+const port = process.env.VUE_APP_SERVER_PORT || 3000 
 
 app.use(express.static(path.join(__dirname, '..', 'dist') ))
 app.use(express.static(path.join(__dirname, '..', 'public') ))

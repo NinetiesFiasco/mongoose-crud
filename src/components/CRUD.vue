@@ -8,6 +8,7 @@
         <!-- column headers -->
         <thead>
           <tr>
+            <th>№</th>
             <th>ID</th>
             <th>Data</th>
             <th>Action</th>
@@ -19,6 +20,7 @@
           <template v-for="(entry, key) of crudData" :key="key">
             <tr>
               <td>{{key+1}}</td>
+              <td>{{entry._id}}</td>
               <td>{{entry.stringValue}}</td>
               <td :index="key">
                 <button @click="update">Update</button>
@@ -54,7 +56,7 @@ export default {
   name: 'Crud',
   
   computed: {
-    ...mapGetters('crud', ['edited','crudData'])
+    ...mapGetters('example', ['edited','crudData'])
   },
 
   mounted() {
@@ -62,8 +64,8 @@ export default {
   },
   
   methods: {
-    ...mapMutations('crud', ['refresh', 'startUpdate']),
-    ...mapActions('crud', ['save', 'read', 'delete']),
+    ...mapMutations('example', ['refresh', 'startUpdate']),
+    ...mapActions('example', ['save', 'read', 'delete']),
 
     update(e) {
       const index = parseInt(e.target.parentNode.getAttribute('index'))
@@ -74,11 +76,6 @@ export default {
       const index = e.target.parentNode.getAttribute('index')
       this.delete(index)
     }
-
   }
-
 }
 </script>
-
-<style scoped>
-</style>

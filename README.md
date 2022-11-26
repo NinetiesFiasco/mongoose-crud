@@ -1,24 +1,29 @@
 # crud-system
 
+Simple CRUD with single string field using VUE, VUEX, Node, Express, Mongo DB.  
+Development back port 3030  
+Development front port 8800
+
 ## Project setup
 ```
-npm install
+npm i
 ```
 
-### Compiles and hot-reloads for development
+### Compiles and hot-reloads for development VUE part
 ```
 npm run serve
 ```
+### Express with hot-reloads for development
+```
+npm run dev-server
+```
 
-### Compiles and minifies for production
+### Compiles and minifies for production VUE part
 ```
 npm run build
 ```
 
-### Lints and fixes files
+### Lint and fixes files
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

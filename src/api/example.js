@@ -37,6 +37,15 @@ const read = async function() {
   return handleResponse(response)
 }
 
+const readPage = async function(skip, limit) {
+  const response = await fetch(`${url}/${skip}/${limit}`, {
+    method: 'GET',
+    headers
+  })
+
+  return handleResponse(response)  
+}
+
 const update = async function(id, data) {
   const response = await fetch(`${url}/${id}`, {
     method: 'PUT',
@@ -56,4 +65,22 @@ const _delete = async function(id) {
   return handleResponse(response)
 }
 
-export default {create, read, update, delete:_delete}
+const count = async function() {
+  const response = await fetch(`${url}/count`, {
+    method: 'GET',
+    headers
+  })
+
+  return handleResponse(response)
+}
+
+const generate = async function(count) {
+  const response = await fetch(`${url}/random/${count}`, {
+    method: 'GET',
+    headers
+  })
+
+  return handleResponse(response)
+}
+
+export default {create, read, update, delete:_delete, count, generate, readPage}

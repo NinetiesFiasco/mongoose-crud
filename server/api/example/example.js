@@ -1,10 +1,13 @@
-const express = require('express');
-const router = express.Router();
-const {post, get, put, deleteRequest} = require('./controller');
+const express = require('express')
+const router = express.Router()
+const controller = require('./controller')
 
-router.post('/', post);
-router.get('/', get);
-router.put('/:id', put);
-router.delete('/:id', deleteRequest);
+router.post('/', controller.post)
+router.get('/', controller.get)
+router.get('/random/:count', controller.random)
+router.get('/:skip/:limit', controller.readPage)
+router.get('/count', controller.count)
+router.put('/:id', controller.put)
+router.delete('/:id', controller.delete)
 
-module.exports = router;
+module.exports = router

@@ -1,12 +1,20 @@
 require('dotenv').config()
-require('./mongodb').dataBaseConnect()
 
 const express = require('express')
 const bodyParser = require('body-parser')
 const path = require('path')
 const cors = require('cors')
 
-const {example} = require('./api')
+const mongoose = require('mongoose')
+mongoose.connect(
+  process.env.MONGO_URL,
+  {useNewUrlParser: true},
+  () => {console.log('Mongoose connected')},
+  e=>console.error(e)
+)
+
+const {humans} = require('./api')
+
 
 const app = express()
 const dotenv = require('dotenv')
@@ -22,7 +30,7 @@ const port = process.env.VUE_APP_SERVER_PORT || 3000
 app.use(express.static(path.join(__dirname, '..', 'dist') ))
 app.use(express.static(path.join(__dirname, '..', 'public') ))
 
-app.use('/api/example', example)
+app.use('/api/humans', humans)
 
 app.use(express.static('public'))
 

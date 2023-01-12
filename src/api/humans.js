@@ -1,7 +1,4 @@
-// const url = process.env.VUE_APP_ENVIRONMENT === 'development'
-//   ? `http://localhost:${process.env.VUE_APP_SERVER_PORT}/api/example`
-//   : '/api/example'
-const url = '/api/example'
+const url = 'http://localhost:3030/api/humans'
   
 const headers = {
   'Accept': 'application/json',

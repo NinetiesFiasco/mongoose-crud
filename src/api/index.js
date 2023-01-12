@@ -1,3 +1,3 @@
-import example from './example'
+import humans from './humans'
 
-export default {example}
+export default {humans}

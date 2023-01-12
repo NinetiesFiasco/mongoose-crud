@@ -1,14 +1,14 @@
 <template>
-  <Crud />
+  <Humans />
 </template>
 
 <script>
-import Crud from './components/CRUD.vue'
+import {Humans} from './components'
 
 export default {
   name: 'App',
   components: {
-    Crud
+    Humans
   }
 }
 </script>

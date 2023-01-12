@@ -1,3 +1,2 @@
-const example = require('./example')
-
-module.exports = {example}
+const humans = require('./humans')
+module.exports = {humans}
